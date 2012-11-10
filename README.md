@@ -6,6 +6,7 @@ Installation:
 - create a leaderboard DB and import leaderboard.sql
 - edit 'lib/db.php' with your mysql details (default is root, blank password)
 - in the terminal run "php path/to/project/root/fake_data.php to import 1,000,000 rows of game data.
+- Setup a Virtualhost for local.kixboard.com:
 
 
 JSON Endpoints Available:
@@ -20,4 +21,4 @@ JSON Endpoints Available:
 
 Screenshot:
 -------------------------
-![My image](feelobot.github.com/kixboard/img/kixboardapi.png)
+<img src="http://i.imgur.com/oQJxA.png"/ height='400px'/>
