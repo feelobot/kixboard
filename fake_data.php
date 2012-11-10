@@ -9,7 +9,7 @@ $users_to_generate = 1000000;
 $users = array();
 
 for ($i = 1; $i <= $users_to_generate; $i++) {
-  $user = new User(rand(1,100));
+  $user = new User(rand(1,100000));
   $score = rand(100,99999999);
   $text = "User $user->id - Game score: $score";
   

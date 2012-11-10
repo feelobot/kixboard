@@ -43,7 +43,7 @@
                 if (response.authResponse) {
                     // logged in and connected user, someone you know
                     testAPI();
-                    getFriends();
+                    
                 }
             });
 
@@ -59,22 +59,36 @@
 
         function testAPI() {
                 console.log('Welcome!  Fetching your information.... ');
-                FB.api('/me', function(response) {
-                    console.log('Good to see you, ' + response.name + '.');
-                    console.log('Post ID: ' + response.id);
-                    $('#results h3').text('Good to see you, ' + response.name + '.');
+                FB.api('/me', function(user) {
+                    console.log('Good to see you, ' + user.name + '.');
+                    console.log('Post ID: ' + user.id);
+                    $('#results h3').text('Good to see you, ' + user.name + '.');
+                    var friends = getFriends();
+                    
+                    $.ajax({
+                          type: "POST",
+                          url: "index.php/store/friends",
+                          data: {user:user.id, friends_list: friends}
+
+                        }).done(function( msg ) {
+                          alert( "Data Saved: " + msg );
+                        });
 
                 });
             }
         function getFriends() {
             FB.api('/me/friends', function(response) {
                 if(response.data) {
+                    $('#results h3').text('Here are your friends:');
                     $.each(response.data,function(index,friend) {
-                        console.log(friend.name + ':' + friend.id);
+
+                        $('#results').append('<p>' + friend.name + ' has id:' + friend.id + '</p>');
+                        console.log(response.data)
                     });
                 } else {
                     alert("Error!");
                 }
+                return response.data;
             });
         }
     </script>
