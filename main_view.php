@@ -26,6 +26,9 @@
         <div id="fb-root">
     </div>
     <script type="text/javascript">
+        var faceid;
+        var face_friends;
+
         window.fbAsyncInit = function () {
             FB.init({ appId: '484120638294778', status: true, cookie: true, xfbml: true });
 
@@ -33,18 +36,23 @@
             FB.Event.subscribe('auth.login', function (response) {
                 // Successfully Connected
                 testAPI();
+                $('#results p').show();
             });
             FB.Event.subscribe('auth.logout', function (response) {
                 // Log Out
                 $('#results h3').text('Goodbye');
+                $('#results li').remove();
+                $('#results p').hide('slow');
             });
 
             FB.getLoginStatus(function (response) {
                 if (response.authResponse) {
                     // logged in and connected user, someone you know
                     testAPI();
-                    
                 }
+                else
+                  //user is not logged in
+                  $('#results h3').text('Please Log In First');
             });
 
         };
@@ -58,39 +66,33 @@
         } ());
 
         function testAPI() {
-                console.log('Welcome!  Fetching your information.... ');
-                FB.api('/me', function(user) {
-                    console.log('Good to see you, ' + user.name + '.');
-                    console.log('Post ID: ' + user.id);
-                    $('#results h3').text('Good to see you, ' + user.name + '.');
-                    var friends = getFriends();
-                    
-                    $.ajax({
-                          type: "POST",
-                          url: "index.php/store/friends",
-                          data: {user:user.id, friends_list: friends}
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me', function(user) {
+                $('#results h3').text('Good to see you, ' + user.name + '( ' + user.id +' ) Here are your friends:');
+                console.log(user.id);
+                faceid = user.id;
+            });
 
-                        }).done(function( msg ) {
-                          alert( "Data Saved: " + msg );
-                        });
-
-                });
-            }
-        function getFriends() {
             FB.api('/me/friends', function(response) {
                 if(response.data) {
-                    $('#results h3').text('Here are your friends:');
+                    $('#results p').hide();
                     $.each(response.data,function(index,friend) {
-
-                        $('#results').append('<p>' + friend.name + ' has id:' + friend.id + '</p>');
-                        console.log(response.data)
+                        $('#results ul').append('<li>' + friend.name + ' has id:' + friend.id + '</li>');
+                        //console.log(response);
                     });
                 } else {
                     alert("Error!");
                 }
-                return response.data;
-            });
-        }
+                $.ajax({
+                  type: "POST",
+                  url: "index.php/api/storefriends",
+                  data: { user: faceid, friends: response.data }
+
+                }).done(function( msg ) {
+                  console.log( "Data Saved: ");
+                });
+                });
+            }
     </script>
         <img src='http://upload.wikimedia.org/wikipedia/en/a/aa/Kixeye_logo.png' height='20px' /> 
         <div class="fb-like" data-href="http://local.kixboard.com" data-send="true" data-width="200" data-show-faces="false"></div>
@@ -111,6 +113,9 @@
           <h3></h3>
           <p>
           </p>
+          <ul>
+            <li></li>
+          </ul>
         </div>
         <footer>
           <div id="box1">

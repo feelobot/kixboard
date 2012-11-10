@@ -4,17 +4,21 @@ class User {
   public $facebook_user_id = null;
   public $created_at = null;
   public $exists = false;
+  public $friends = null;
 
-  public function __construct($facebook_user_id, $create = true) {
+  public function __construct($facebook_user_id, $friends, $create = true) {
     $this->facebook_user_id = $facebook_user_id;
     $search_result = $this->find_by_facebook_id($this->facebook_user_id);
+    $this->friends = $friends;
 
     
     # Find or create this user in the db
     if ($search_result) {
       $this->exists = true;
       $this->map_data($search_result);
-    } elseif ($create) {
+    /*} elseif ($this->friends == array('')){
+      $this-> updateUser();*/
+    } else if ($create) {
       $this->exists = true;
       $this->create();
     }
@@ -68,9 +72,10 @@ class User {
   private function create() {
     global $dbh;
     $this->created_at = time();
-    $sth = $dbh->prepare('INSERT INTO users (facebook_user_id, created_at) VALUES (:facebook_user_id, :created_at)');
+    $sth = $dbh->prepare('INSERT INTO users (facebook_user_id, created_at, friends) VALUES (:facebook_user_id, :created_at, :friends)');
     $sth->bindParam(':facebook_user_id', $this->facebook_user_id, PDO::PARAM_INT);
     $sth->bindParam(':created_at', $this->created_at, PDO::PARAM_INT);
+    $sth->bindParam(':friends', $this->friends, PDO::PARAM_INT);
     $sth->execute();
     $this->id = $dbh->lastInsertId('id');
   }
@@ -79,5 +84,15 @@ class User {
   private function map_data($result_data) {
     $this->id = $result_data["id"];
     $this->created_at = $result_data["created_at"];
+    $this->friends = $result_data["friends"];
+  }
+
+  private function updateUser(){
+    global $dbh;
+    $this->created_at = time();
+    $sth = $dbh->prepare('UPDATE users SET friends = :friends WHERE facebook_user_id = :facebook_user_id');
+    $sth->bindParam(':facebook_user_id', $this->facebook_user_id, PDO::PARAM_INT);
+    $sth->bindParam(':friends', $this->freinds, PDO::PARAM_INT);
+    $sth->execute();
   }
 }
