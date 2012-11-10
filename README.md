@@ -7,6 +7,14 @@ Installation:
 - edit 'lib/db.php' with your mysql details (default is root, blank password)
 - in the terminal run "php path/to/project/root/fake_data.php to import 1,000,000 rows of game data.
 
+Setup a Virtualhost for local.kixboard.com:
+<quote>
+<VirtualHost *:80>
+DocumentRoot /var/www/kixboard/
+ServerName local.kixboard.com
+</VirtualHost>
+</quote>
+
 
 JSON Endpoints Available:
 -------------------------
