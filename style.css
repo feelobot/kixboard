@@ -2,6 +2,9 @@
 	font-family: "Courier New", Courier, monospace;
 	font-size: 14px;
 }
+hr{
+	border: 1px dashed #000;
+}
 h1{
 	padding: 1em;
 	font-size: 22px;
@@ -10,7 +13,6 @@ h1{
 	margin: 0 auto;
 	width: 75%;
 	text-align: center;
-	border: 1px dashed #000;
 	min-height: 60%;
 }
 .steps{
@@ -58,15 +60,18 @@ nav{
 	-webkit-border-radius: 1em;
 	-moz-border-radius: 1em;
 	border-radius: 1em;
-
-/*
-	-webkit-box-shadow: 5px 5px 3px #000;
-	-moz-box-shadow: 5px 5px 3px #000;
-	box-shadow: 5px 5px 3px #000;
-*/
-
+	-webkit-box-shadow: 5px 5px 5px #000;
+	-moz-box-shadow: 5px 5px 5px #000;
+	box-shadow: 5px 5px 5px #000;
 }
-	#results h3 {color: white;}
+
+#results h3 {color: white;}
+
 footer{
 	margin: 1em;
+}
+
+#box1,#box2,#box3{
+	float: left;
+	margin: 0em 1.5em 0em 2em;
 }

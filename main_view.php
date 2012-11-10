@@ -10,64 +10,8 @@
     <link rel='stylesheet' href='style.css'>
   </head>
   <body>
-
-  <div id='fb-root'></div>
-    <script>
-      /*
-      // Additional JS functions here
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId      : '126767144061773', // App ID
-          channelUrl : 'channel.html', // Channel File
-          status     : true, // check login status
-          cookie     : true, // enable cookies to allow the server to access the session
-          xfbml      : true  // parse XFBML
-        });
-
-        FB.getLoginStatus(function(response) {
-          if (response.status === 'connected') {
-            // connected
-          } else if (response.status === 'not_authorized') {
-            // not_authorized
-          } else {
-            // not_logged_in
-          }
-         });
-
-      };
-
-      // Load the SDK Asynchronously
-      (function(d){
-         var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-         if (d.getElementById(id)) {return;}
-         js = d.createElement('script'); js.id = id; js.async = true;
-         js.src = '//connect.facebook.net/en_US/all.js';
-         ref.parentNode.insertBefore(js, ref);
-       }(document));
-
-        
-      /* Facebook Provided Code --------------------------------------------
-      $app_id = "126767144061773";
-      $app_secret = "21db65a65e204cca7b5afcbad91fea59";
-      $app_token_url = "https://graph.facebook.com/oauth/access_token?"
-        . "client_id=" . $app_id
-        . "&client_secret=" . $app_secret 
-        . "&grant_type=client_credentials";
-
-        $response = file_get_contents($app_token_url);
-        $params = null;
-      parse_str($response, $params);
-
-      echo("This app's access token is: " . $params['access_token']);
-      $graph_url = "https://graph.facebook.com/app?access_token=" 
-      . $params['access_token'];
-
-      $app_details = json_decode(file_get_contents($graph_url), true);
-
-      echo("<br />Here is a link to the app " . $app_details['link']);
-      /*---------------------------------------------------------------------*/
-    </script>
     <center>
+    <header>
       <pre>
  _  _______  ______   ___    _    ____  ____       _    ____ ___ 
 | |/ /_ _\ \/ / __ ) / _ \  / \  |  _ \|  _ \     / \  |  _ \_ _|
@@ -75,6 +19,70 @@
 | . \ | | /  \| |_) | |_| / ___ \|  _ <| |_| |  / ___ \|  __/| | 
 |_|\_\___/_/\_\____/ \___/_/   \_\_| \_\____/  /_/   \_\_|  |___|</pre>
 
+    <div>
+        <div id="fb-root"></div>
+        <fb:login-button show-faces="false" perms="user_hometown,user_about_me,email" autologoutlink="true" width="100" max-rows="1">
+        </fb:login-button>
+        <div id="fb-root">
+    </div>
+    <script type="text/javascript">
+        window.fbAsyncInit = function () {
+            FB.init({ appId: '484120638294778', status: true, cookie: true, xfbml: true });
+
+            /* All the events registered */
+            FB.Event.subscribe('auth.login', function (response) {
+                // Successfully Connected
+                testAPI();
+            });
+            FB.Event.subscribe('auth.logout', function (response) {
+                // Log Out
+                $('#results h3').text('Goodbye');
+            });
+
+            FB.getLoginStatus(function (response) {
+                if (response.authResponse) {
+                    // logged in and connected user, someone you know
+                    testAPI();
+                    getFriends();
+                }
+            });
+
+        };
+        (function () {
+            var e = document.createElement('script');
+            e.type = 'text/javascript';
+            e.src = document.location.protocol +
+            '//connect.facebook.net/en_US/all.js';
+            e.async = true;
+            document.getElementById('fb-root').appendChild(e);
+        } ());
+
+        function testAPI() {
+                console.log('Welcome!  Fetching your information.... ');
+                FB.api('/me', function(response) {
+                    console.log('Good to see you, ' + response.name + '.');
+                    console.log('Post ID: ' + response.id);
+                    $('#results h3').text('Good to see you, ' + response.name + '.');
+
+                });
+            }
+        function getFriends() {
+            FB.api('/me/friends', function(response) {
+                if(response.data) {
+                    $.each(response.data,function(index,friend) {
+                        console.log(friend.name + ':' + friend.id);
+                    });
+                } else {
+                    alert("Error!");
+                }
+            });
+        }
+    </script>
+        <img src='http://upload.wikimedia.org/wikipedia/en/a/aa/Kixeye_logo.png' height='20px' /> 
+        <div class="fb-like" data-href="http://local.kixboard.com" data-send="true" data-width="200" data-show-faces="false"></div>
+        <hr />
+    </div>
+    </header>
       <div id='content'>
         <h1>API Examples:</h1>
         <nav>
@@ -87,18 +95,20 @@
         </nav>
         <div id='results'>
           <h3></h3>
-          <p></p>
+          <p>
+          </p>
         </div>
-        <div id="facebook">
-          <fb:activity 
-          site="http://www.kixeye.com"
-          app_id="126767144061773">
-          </fb:activity>
-      </div>
-      </div>
-      <footer>
-        <img src='http://upload.wikimedia.org/wikipedia/en/a/aa/Kixeye_logo.png' height='20px' /> 
-      <footer>
+        <footer>
+          <div id="box1">
+            <div class="fb-comments" data-href="http://local.kixboard.com" data-num-posts="2" data-width="600"></div>
+          </div>
+          <div id="box2">
+            <div class="fb-activity" data-site="local.kixboard.com" data-app-id="484120638294778" data-width="250" data-height="160" data-header="true" data-colorscheme="light" data-recommendations="false"></div> 
+          </div>
+          <div id="box3">
+          </div>
+          
+        <footer>
     </center>
   </body>
 </html>
