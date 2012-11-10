@@ -10,11 +10,10 @@ Installation:
 
 JSON Endpoints Available:
 -------------------------
-GET 	/api/user/:number
-POST 	/api/user/:number
-GET 	/api/admin/				
-GET 	/api/admin/count		Total Players
-GET		/api/admin/today
-GET		/api/admin/all
-GET 	/api/admin/top10
-GET 	/api/admin/top10Improved
+- GET 	/api/user/:number					Find a User
+- POST 	/api/user/:number					Create a User
+- GET 	/api/admin/count					Total Players
+- GET		/api/admin/today					Players Today
+- GET		/api/admin/all 						All Games
+- GET 	/api/admin/top10 					Top 10 Players
+- GET 	/api/admin/top10Improved	Top 10 Improved Players
