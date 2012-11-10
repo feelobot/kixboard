@@ -20,5 +20,4 @@ JSON Endpoints Available:
 
 Screenshot:
 -------------------------
-![Alt text](/path/to/img.jpg)
-![screenshot](/img/kixboardapi.png)
+![screenshot](img/kixboardapi.png)
