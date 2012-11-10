@@ -17,3 +17,7 @@ JSON Endpoints Available:
 - GET		/api/admin/all 						All Games
 - GET 	/api/admin/top10 					Top 10 Players
 - GET 	/api/admin/top10Improved	Top 10 Improved Players
+
+Screenshot:
+-------------------------
+![My image](feelobot.github.com/kixboard/img/kixboardapi.jpg)
