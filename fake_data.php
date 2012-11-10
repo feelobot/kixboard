@@ -9,11 +9,10 @@ $users_to_generate = 1000000;
 $users = array();
 
 for ($i = 1; $i <= $users_to_generate; $i++) {
-  $user = new User(rand(1,100000));
+  $friends = null;
+  $user = new User(rand(1,100000),$friends );
   $score = rand(100,99999999);
   $text = "User $user->id - Game score: $score";
-  
-  
   $users[] = $user;
 
   if ($i % 2 == 0)
