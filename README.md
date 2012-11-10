@@ -20,4 +20,4 @@ JSON Endpoints Available:
 
 Screenshot:
 -------------------------
-![My image](feelobot.github.com/kixboard/img/kixboardapi.jpg)
+![My image](feelobot.github.com/kixboard/img/kixboardapi.png)
