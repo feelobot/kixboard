@@ -20,4 +20,4 @@ JSON Endpoints Available:
 
 Screenshot:
 -------------------------
-<img src="http://i.imgur.com/oQJxA.png"/ height='300px'/>
+<img src="http://i.imgur.com/oQJxA.png"/ height='400px'/>
