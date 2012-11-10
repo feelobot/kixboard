@@ -20,4 +20,4 @@ JSON Endpoints Available:
 
 Screenshot:
 -------------------------
-![screenshot](img/kixboardapi.png)
+<img src="http://i.imgur.com/oQJxA.png"/ height='300px'/>
