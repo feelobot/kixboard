@@ -6,7 +6,7 @@ class User {
   public $exists = false;
   public $friends = null;
 
-  public function __construct($facebook_user_id, $friends, $create = true) {
+  public function __construct($facebook_user_id, $friends=null, $create = true) {
     $this->facebook_user_id = $facebook_user_id;
     $search_result = $this->find_by_facebook_id($this->facebook_user_id);
     $this->friends = $friends;
@@ -75,7 +75,7 @@ class User {
     $sth = $dbh->prepare('INSERT INTO users (facebook_user_id, created_at, friends) VALUES (:facebook_user_id, :created_at, :friends)');
     $sth->bindParam(':facebook_user_id', $this->facebook_user_id, PDO::PARAM_INT);
     $sth->bindParam(':created_at', $this->created_at, PDO::PARAM_INT);
-    $sth->bindParam(':friends', $this->friends, PDO::PARAM_INT);
+    $sth->bindParam(':friends', json_encode($this->friends), PDO::PARAM_INT);
     $sth->execute();
     $this->id = $dbh->lastInsertId('id');
   }

@@ -1,7 +1,7 @@
 <?php
 class UserHandler {
   function get($facebook_id) {
-    $user = new User($facebook_id, false);
+    $user = new User($facebook_id,null ,false);
     if ($user->exists)
       echo json_encode($user);
     else

@@ -10,8 +10,8 @@ $(document).ready(
     $('nav li:eq(0)').click(
       function(event){
         event.preventDefault();
-        $('#results h3').text('index.php/api/user/:number');
-        $('#results p').load('index.php/api/user/1');
+        $('#results h3').text('index.php/api/user/');
+        $('#results p').load('index.php/api/user/'+faceid)  ;
     });
     
     $('nav li:eq(1)').click(
@@ -49,6 +49,6 @@ $(document).ready(
         $('#results h3').text('index.php/api/admin/top10Improved');
         $('#results p').load('index.php/api/admin/top10Improved');
     });
-    
+
   }
 );
